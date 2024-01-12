@@ -1,0 +1,76 @@
+docker run --name mysql-social-nextjs14 --privileged -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=social -p 3301:3306 -d mysql:5.7
+
+
+CREATE TABLE `social`.`Users` (
+    `id` INT NOT NULL AUTO_INCREMENT , 
+    `username` VARCHAR(45) NOT NULL , 
+    `email` VARCHAR(45) NOT NULL , 
+    `password` VARCHAR(200) NOT NULL , 
+    `name` VARCHAR(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL , 
+    PRIMARY KEY (`id`)
+    ) ENGINE = InnoDB;
+
+
+ALTER TABLE `social`.`Users` ADD (`coverPic` VARCHAR(100), `profilePic` VARCHAR(100), `city` VARCHAR(45), `website` VARCHAR(45));
+
+CREATE TABLE `social`.`Posts` (
+    `id` INT NOT NULL AUTO_INCREMENT , 
+    `desc` VARCHAR(200) CHARACTER SET utf8 COLLATE utf8_general_ci, 
+    `img` VARCHAR(200) , 
+    `userId` INT NOT NULL , 
+`createdAt` DATETIME ,
+    PRIMARY KEY (`id`),
+FOREIGN KEY (`userId`) REFERENCES Users(`id`) ON DELETE CASCADE ON UPDATE CASCADE
+    ) ENGINE = InnoDB;
+
+
+CREATE TABLE `social`.`Comments` (
+    `id` INT NOT NULL AUTO_INCREMENT , 
+    `desc` VARCHAR(200) CHARACTER SET utf8 COLLATE utf8_general_ci, 
+    `userId` INT NOT NULL , 
+`postId` INT NOT NULL , 
+`createdAt` DATETIME ,
+    PRIMARY KEY (`id`),
+FOREIGN KEY (`userId`) REFERENCES Users(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY (`postId`) REFERENCES Posts(`id`) ON DELETE CASCADE ON UPDATE CASCADE
+    ) ENGINE = InnoDB;
+
+
+CREATE TABLE `social`.`Stories` (
+    `id` INT NOT NULL AUTO_INCREMENT , 
+    `img` VARCHAR(200) , 
+    `userId` INT NOT NULL , 
+    PRIMARY KEY (`id`),
+FOREIGN KEY (`userId`) REFERENCES Users(`id`) ON DELETE CASCADE ON UPDATE CASCADE
+    ) ENGINE = InnoDB;
+
+
+CREATE TABLE `social`.`Relationships` (
+    `id` INT NOT NULL AUTO_INCREMENT , 
+    `followerUserId` INT NOT NULL , 
+    `followedUserId` INT NOT NULL , 
+    PRIMARY KEY (`id`),
+FOREIGN KEY (`followerUserId`) REFERENCES Users(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY (`followedUserId`) REFERENCES Users(`id`) ON DELETE CASCADE ON UPDATE CASCADE
+    ) ENGINE = InnoDB;
+
+
+CREATE TABLE `social`.`Likes` (
+    `id` INT NOT NULL AUTO_INCREMENT , 
+    `userId` INT NOT NULL , 
+    `postId` INT NOT NULL , 
+    PRIMARY KEY (`id`),
+FOREIGN KEY (`userId`) REFERENCES Users(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY (`postId`) REFERENCES Posts(`id`) ON DELETE CASCADE ON UPDATE CASCADE
+    ) ENGINE = InnoDB;
+
+
+
+
+
+
+
+
+
+
+

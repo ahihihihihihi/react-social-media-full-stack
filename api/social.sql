@@ -1,0 +1,105 @@
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+DROP TABLE IF EXISTS `Comments`;
+CREATE TABLE `Comments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `desc` varchar(200) CHARACTER SET utf8 DEFAULT NULL,
+  `userId` int(11) NOT NULL,
+  `postId` int(11) NOT NULL,
+  `createdAt` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `userId` (`userId`),
+  KEY `postId` (`postId`),
+  CONSTRAINT `Comments_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `Users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Comments_ibfk_2` FOREIGN KEY (`postId`) REFERENCES `Posts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+DROP TABLE IF EXISTS `Likes`;
+CREATE TABLE `Likes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userId` int(11) NOT NULL,
+  `postId` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `userId` (`userId`),
+  KEY `postId` (`postId`),
+  CONSTRAINT `Likes_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `Users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Likes_ibfk_2` FOREIGN KEY (`postId`) REFERENCES `Posts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+DROP TABLE IF EXISTS `Posts`;
+CREATE TABLE `Posts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `desc` varchar(200) CHARACTER SET utf8 DEFAULT NULL,
+  `img` varchar(200) DEFAULT NULL,
+  `userId` int(11) NOT NULL,
+  `createdAt` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `userId` (`userId`),
+  CONSTRAINT `Posts_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `Users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+DROP TABLE IF EXISTS `Relationships`;
+CREATE TABLE `Relationships` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `followerUserId` int(11) NOT NULL,
+  `followedUserId` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `followerUserId` (`followerUserId`),
+  KEY `followedUserId` (`followedUserId`),
+  CONSTRAINT `Relationships_ibfk_1` FOREIGN KEY (`followerUserId`) REFERENCES `Users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Relationships_ibfk_2` FOREIGN KEY (`followedUserId`) REFERENCES `Users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+DROP TABLE IF EXISTS `Stories`;
+CREATE TABLE `Stories` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `img` varchar(200) DEFAULT NULL,
+  `userId` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `userId` (`userId`),
+  CONSTRAINT `Stories_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `Users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+DROP TABLE IF EXISTS `Users`;
+CREATE TABLE `Users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(45) NOT NULL,
+  `email` varchar(45) NOT NULL,
+  `password` varchar(200) NOT NULL,
+  `name` varchar(45) CHARACTER SET utf8 NOT NULL,
+  `coverPic` varchar(100) DEFAULT NULL,
+  `profilePic` varchar(100) DEFAULT NULL,
+  `city` varchar(45) CHARACTER SET utf8 DEFAULT NULL,
+  `website` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+
+
+
+
+
+
+
+
+
+
+INSERT INTO `Users` (`id`, `username`, `email`, `password`, `name`, `coverPic`, `profilePic`, `city`, `website`) VALUES
+(1, 'test', 'test@gmail.com', '$2a$10$9F0I1bw0fBIUFdQ5BcIVrOIWP6nLdDy7uBButU5mBnUfRltbuvhue', 'John Doe', NULL, NULL, NULL, NULL);
+
+
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
