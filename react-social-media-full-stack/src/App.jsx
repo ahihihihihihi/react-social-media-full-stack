@@ -18,7 +18,7 @@ import RightBar from "./components/rightBar/RightBar";
 import { useContext } from 'react';
 import { DarkModeContext } from './context/darkModeContext';
 import { AuthContext } from "./context/authContext";
-
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 
 function App() {
@@ -29,21 +29,23 @@ function App() {
 
   // console.log(">>>check darkMode: ", darkMode)
 
-
+  const queryClient = new QueryClient();
 
   const Layout = () => {
 
     return (
-      <div className={`app theme-${darkMode ? 'light theme' : 'dark theme'}`}>
-        <Navbar />
-        <div style={{ display: "flex" }}>
-          <LeftBar />
-          <div style={{ flex: 6 }}>
-            <Outlet />
+      <QueryClientProvider client={queryClient}>
+        <div className={`app theme-${darkMode ? 'light theme' : 'dark theme'}`}>
+          <Navbar />
+          <div style={{ display: "flex" }}>
+            <LeftBar />
+            <div style={{ flex: 6 }}>
+              <Outlet />
+            </div>
+            <RightBar />
           </div>
-          <RightBar />
         </div>
-      </div>
+      </QueryClientProvider>
     );
   };
 

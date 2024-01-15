@@ -43,7 +43,7 @@ CREATE TABLE `Posts` (
   PRIMARY KEY (`id`),
   KEY `userId` (`userId`),
   CONSTRAINT `Posts_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `Users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 DROP TABLE IF EXISTS `Relationships`;
 CREATE TABLE `Relationships` (
@@ -79,13 +79,18 @@ CREATE TABLE `Users` (
   `city` varchar(45) CHARACTER SET utf8 DEFAULT NULL,
   `website` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 
 
 
 
-
+INSERT INTO `Posts` (`id`, `desc`, `img`, `userId`, `createdAt`) VALUES
+(1, 'desc1', NULL, 1, '2024-01-15 09:24:56');
+INSERT INTO `Posts` (`id`, `desc`, `img`, `userId`, `createdAt`) VALUES
+(2, 'desc2', NULL, 2, NULL);
+INSERT INTO `Posts` (`id`, `desc`, `img`, `userId`, `createdAt`) VALUES
+(3, 'desc4', NULL, 4, NULL);
 
 
 
@@ -95,7 +100,8 @@ INSERT INTO `Users` (`id`, `username`, `email`, `password`, `name`, `coverPic`, 
 (1, 'test', 'test@gmail.com', '$2a$10$9F0I1bw0fBIUFdQ5BcIVrOIWP6nLdDy7uBButU5mBnUfRltbuvhue', 'John Doe', NULL, NULL, NULL, NULL);
 INSERT INTO `Users` (`id`, `username`, `email`, `password`, `name`, `coverPic`, `profilePic`, `city`, `website`) VALUES
 (2, 'test2', 'test2@email.com', '$2a$10$ZhkG2nxIY6vL2O1y5M0d1eovV7nrfMKCRR0lbG7QVWFJJ4eoavhdy', 'Test2', 'https://images.pexels.com/photos/13916254/pexels-photo-13916254.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load', 'https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600', 'SG', 'http://ahihi.com');
-
+INSERT INTO `Users` (`id`, `username`, `email`, `password`, `name`, `coverPic`, `profilePic`, `city`, `website`) VALUES
+(4, 'test3', 'test3@gmail.com', '$2a$10$6cJUyHVDJikrI2O6pLuy9OOTOPEFyJOLEk44JZMBQ.GB/72/TVmyq', 'John Doe', NULL, NULL, NULL, NULL);
 
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
