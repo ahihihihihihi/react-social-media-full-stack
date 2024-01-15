@@ -74,12 +74,12 @@ CREATE TABLE `Users` (
   `email` varchar(45) NOT NULL,
   `password` varchar(200) NOT NULL,
   `name` varchar(45) CHARACTER SET utf8 NOT NULL,
-  `coverPic` varchar(100) DEFAULT NULL,
-  `profilePic` varchar(100) DEFAULT NULL,
+  `coverPic` varchar(300) DEFAULT NULL,
+  `profilePic` varchar(300) DEFAULT NULL,
   `city` varchar(45) CHARACTER SET utf8 DEFAULT NULL,
   `website` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 
 
@@ -93,6 +93,8 @@ CREATE TABLE `Users` (
 
 INSERT INTO `Users` (`id`, `username`, `email`, `password`, `name`, `coverPic`, `profilePic`, `city`, `website`) VALUES
 (1, 'test', 'test@gmail.com', '$2a$10$9F0I1bw0fBIUFdQ5BcIVrOIWP6nLdDy7uBButU5mBnUfRltbuvhue', 'John Doe', NULL, NULL, NULL, NULL);
+INSERT INTO `Users` (`id`, `username`, `email`, `password`, `name`, `coverPic`, `profilePic`, `city`, `website`) VALUES
+(2, 'test2', 'test2@email.com', '$2a$10$ZhkG2nxIY6vL2O1y5M0d1eovV7nrfMKCRR0lbG7QVWFJJ4eoavhdy', 'Test2', 'https://images.pexels.com/photos/13916254/pexels-photo-13916254.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load', 'https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600', 'SG', 'http://ahihi.com');
 
 
 
