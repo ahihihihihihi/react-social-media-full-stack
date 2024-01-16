@@ -19,7 +19,7 @@ CREATE TABLE `Comments` (
   KEY `postId` (`postId`),
   CONSTRAINT `Comments_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `Users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `Comments_ibfk_2` FOREIGN KEY (`postId`) REFERENCES `Posts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 DROP TABLE IF EXISTS `Likes`;
 CREATE TABLE `Likes` (
@@ -81,6 +81,10 @@ CREATE TABLE `Users` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
+INSERT INTO `Comments` (`id`, `desc`, `userId`, `postId`, `createdAt`) VALUES
+(1, 'ahihi', 2, 7, '2024-01-16 16:22:50');
+INSERT INTO `Comments` (`id`, `desc`, `userId`, `postId`, `createdAt`) VALUES
+(2, 'test again', 2, 7, '2024-01-16 16:27:20');
 
 
 
