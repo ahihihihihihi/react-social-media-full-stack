@@ -43,7 +43,7 @@ CREATE TABLE `Posts` (
   PRIMARY KEY (`id`),
   KEY `userId` (`userId`),
   CONSTRAINT `Posts_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `Users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 DROP TABLE IF EXISTS `Relationships`;
 CREATE TABLE `Relationships` (
@@ -55,7 +55,7 @@ CREATE TABLE `Relationships` (
   KEY `followedUserId` (`followedUserId`),
   CONSTRAINT `Relationships_ibfk_1` FOREIGN KEY (`followerUserId`) REFERENCES `Users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `Relationships_ibfk_2` FOREIGN KEY (`followedUserId`) REFERENCES `Users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 DROP TABLE IF EXISTS `Stories`;
 CREATE TABLE `Stories` (
@@ -91,7 +91,11 @@ INSERT INTO `Posts` (`id`, `desc`, `img`, `userId`, `createdAt`) VALUES
 (2, 'desc2', NULL, 2, NULL);
 INSERT INTO `Posts` (`id`, `desc`, `img`, `userId`, `createdAt`) VALUES
 (3, 'desc4', NULL, 4, NULL);
+INSERT INTO `Posts` (`id`, `desc`, `img`, `userId`, `createdAt`) VALUES
+(4, 'post from test2 from postman', NULL, 2, '2024-01-16 11:22:39');
 
+INSERT INTO `Relationships` (`id`, `followerUserId`, `followedUserId`) VALUES
+(1, 2, 4);
 
 
 
