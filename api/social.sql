@@ -43,7 +43,7 @@ CREATE TABLE `Posts` (
   PRIMARY KEY (`id`),
   KEY `userId` (`userId`),
   CONSTRAINT `Posts_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `Users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 DROP TABLE IF EXISTS `Relationships`;
 CREATE TABLE `Relationships` (
@@ -88,13 +88,14 @@ CREATE TABLE `Users` (
 INSERT INTO `Posts` (`id`, `desc`, `img`, `userId`, `createdAt`) VALUES
 (1, 'desc1', NULL, 1, '2024-01-15 09:24:56');
 INSERT INTO `Posts` (`id`, `desc`, `img`, `userId`, `createdAt`) VALUES
-(2, 'desc2', NULL, 2, NULL);
+(2, 'desc2', NULL, 2, '2024-01-15 09:24:56');
 INSERT INTO `Posts` (`id`, `desc`, `img`, `userId`, `createdAt`) VALUES
-(3, 'desc4', NULL, 4, NULL);
+(3, 'desc4', NULL, 4, '2024-01-15 09:24:56');
 INSERT INTO `Posts` (`id`, `desc`, `img`, `userId`, `createdAt`) VALUES
 (4, 'post from test2 from postman', NULL, 2, '2024-01-16 11:22:39'),
 (5, 'ahihi', NULL, 2, '2024-01-16 14:28:01'),
-(6, 'ahaha', NULL, 2, '2024-01-16 14:37:09');
+(6, 'ahaha', NULL, 2, '2024-01-16 14:37:09'),
+(7, 'post with image', '1705393637909cot-song.jpg', 2, '2024-01-16 15:27:17');
 
 INSERT INTO `Relationships` (`id`, `followerUserId`, `followedUserId`) VALUES
 (1, 2, 4);
