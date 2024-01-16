@@ -31,7 +31,7 @@ CREATE TABLE `Likes` (
   KEY `postId` (`postId`),
   CONSTRAINT `Likes_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `Users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `Likes_ibfk_2` FOREIGN KEY (`postId`) REFERENCES `Posts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
 DROP TABLE IF EXISTS `Posts`;
 CREATE TABLE `Posts` (
@@ -87,6 +87,8 @@ INSERT INTO `Comments` (`id`, `desc`, `userId`, `postId`, `createdAt`) VALUES
 (2, 'test again', 2, 7, '2024-01-16 16:27:20');
 
 
+INSERT INTO `Likes` (`id`, `userId`, `postId`) VALUES
+(17, 2, 7);
 
 
 INSERT INTO `Posts` (`id`, `desc`, `img`, `userId`, `createdAt`) VALUES
