@@ -54,7 +54,7 @@ const Post = ({ post }) => {
                             to={`/profile/${post.userId}`}
                             className="link"
                         >
-                            <img src={post.profilePic} alt="" />
+                            <img src={"/upload/" + post.profilePic} alt="" />
                         </Link>
                         <div className="details">
                             <Link
