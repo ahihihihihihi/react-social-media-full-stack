@@ -17,7 +17,15 @@ const Post = ({ post }) => {
 
     const [commentOpen, setCommentOpen] = useState(false);
 
+    const [menuOpen, setMenuOpen] = useState(false);
+
+    const [commentNumber, setCommentNumber] = useState(0);
+
+    const [once, setOnce] = useState(1);
+
     const { currentUser } = useContext(AuthContext);
+
+    const queryClient = useQueryClient();
 
     const { isLoading, error, data } = useQuery(["likes", post.id], () =>
         makeRequest.get("/likes?postId=" + post.id).then((res) => {
@@ -25,7 +33,13 @@ const Post = ({ post }) => {
         })
     );
 
-    const queryClient = useQueryClient();
+    if (once) {
+        makeRequest.get("/comments?postId=" + post.id).then((res) => {
+            // console.log(">>>check temp_comments:", res.data)
+            setOnce(0)
+            setCommentNumber(res.data.length)
+        })
+    }
 
     const mutation = useMutation(
         (liked) => {
@@ -44,6 +58,21 @@ const Post = ({ post }) => {
         mutation.mutate(data.includes(currentUser.id));
     };
 
+    const handleDelete = () => {
+        deleteMutation.mutate(post.id);
+    };
+
+    const deleteMutation = useMutation(
+        (postId) => {
+            return makeRequest.delete("/posts/" + postId);
+        },
+        {
+            onSuccess: () => {
+                // Invalidate and refetch
+                queryClient.invalidateQueries(["posts"]);
+            },
+        }
+    );
 
     return (
         <div className="post">
@@ -66,7 +95,10 @@ const Post = ({ post }) => {
                             <span className="date">{moment(post.createdAt).fromNow()}</span>
                         </div>
                     </div>
-                    <MoreHorizIcon style={{ cursor: "pointer" }} />
+                    <MoreHorizIcon style={post.userId === currentUser.id ? { cursor: "pointer" } : { cursor: "not-allowed" }} onClick={() => setMenuOpen(!menuOpen)} />
+                    {menuOpen && post.userId === currentUser.id && (
+                        <button onClick={handleDelete}>delete</button>
+                    )}
                 </div>
                 <div className="content">
                     <p>{post.desc}</p>
@@ -89,7 +121,7 @@ const Post = ({ post }) => {
                     </div>
                     <div className="item" onClick={() => setCommentOpen(!commentOpen)}>
                         <TextsmsOutlinedIcon />
-                        12 Comments
+                        {commentNumber === 0 ? " Comment" : commentNumber === 1 ? " 1 Comment" : ` ${commentNumber} Comments`}
                     </div>
                     <div className="item">
                         <ShareOutlinedIcon />
@@ -98,6 +130,7 @@ const Post = ({ post }) => {
                 </div>
                 {commentOpen && <Comments
                     postId={post.id}
+                    setCommentNumber={setCommentNumber}
                 />}
             </div>
         </div>
